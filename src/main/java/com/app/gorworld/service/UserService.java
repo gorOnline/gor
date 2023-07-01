@@ -1,6 +1,5 @@
 package com.app.gorworld.service;
 
-import com.app.gorworld.dto.UpdatePlanDto;
 import com.app.gorworld.dto.VerifyPlanDto;
 import com.app.gorworld.exception.UserNotFoundException;
 import com.app.gorworld.model.User;
@@ -20,17 +19,26 @@ public class UserService {
     UserRepo userRepo;
 
     @Autowired
+    GorUtilService gorUtilService;
+
+    @Autowired
     MongoSequenceGeneratorService sequenceGeneratorService;
     public User getUser(String mobileNumber){
       return userRepo.findByMobileNumber(mobileNumber);
     }
 
     public User getUserData(String mobileNumber) throws UserNotFoundException, ParseException {
+
+        User user = checkUserExists(mobileNumber);
+        verifyUserPlan(user);
+        return user;
+    }
+
+    public User checkUserExists(String mobileNumber) throws UserNotFoundException {
         User user = userRepo.findByMobileNumber(mobileNumber);
         if(user == null){
             throw new UserNotFoundException("User with "+mobileNumber+" not found");
         }
-        verifyUserPlan(user);
         return user;
     }
 
@@ -60,8 +68,8 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    public User updateUserPlan(UpdatePlanDto updatePlanDto, User user) {
-        user.setPlan(PLAN.valueOf(updatePlanDto.getPlan()));
+    public User updateUserPlan(String plan, User user) {
+        user.setPlan(gorUtilService.convertToPLAN(plan));
         user.setPlanDate(new Date());
         return userRepo.save(user);
     }

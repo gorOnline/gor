@@ -61,7 +61,7 @@ public class UserController {
             if(null == existingUser) {
                 return new ResponseEntity<>("User not found with number "+ updatePlanDto.getMobileNumber(), HttpStatus.INTERNAL_SERVER_ERROR);
             }else{
-                result = userService.updateUserPlan(updatePlanDto, existingUser);
+                result = userService.updateUserPlan(updatePlanDto.getPlan(), existingUser);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){

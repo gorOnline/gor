@@ -1,6 +1,7 @@
 package com.app.gorworld.controller;
 
 
+import com.app.gorworld.dto.TransactionDto;
 import com.app.gorworld.model.Transaction;
 import com.app.gorworld.service.TransactionService;
 import org.slf4j.Logger;
@@ -20,9 +21,9 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody Transaction transaction) {
+    public ResponseEntity<?> createUser(@RequestBody TransactionDto transactionDto) {
         try {
-            Long result = transactionService.createTransaction(transaction);
+            Long result = transactionService.createTransaction(transactionDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
