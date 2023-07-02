@@ -1,8 +1,8 @@
 package com.app.gorworld.repo;
 
 import com.app.gorworld.model.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends MongoRepository<User, Long> {
+public interface UserRepo extends JpaRepository<User, Long> {
     User findByMobileNumber(String mobileNumber);
 }

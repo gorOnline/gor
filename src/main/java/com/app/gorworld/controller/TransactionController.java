@@ -21,7 +21,8 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody TransactionDto transactionDto) {
+    public ResponseEntity<?> createTransaction(@RequestBody TransactionDto transactionDto) {
+        log.info("Inside -> createTransaction()");
         try {
             Long result = transactionService.createTransaction(transactionDto);
             return new ResponseEntity<>(result, HttpStatus.OK);

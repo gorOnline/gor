@@ -30,7 +30,6 @@ public class TransactionService {
 
         User user = userService.checkUserExists(mobileNumber);
         Transaction transaction = new Transaction();
-        transaction.setId(sequenceGeneratorService.getSequenceNumber(Transaction.SEQUENCE_NAME));
         transaction.setTranId(transactionDto.getTranId());
         transaction.setTranStatus(transactionDto.getTranStatus());
         transaction.setMobileNumber(mobileNumber);

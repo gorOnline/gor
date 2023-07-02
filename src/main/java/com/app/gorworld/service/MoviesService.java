@@ -23,10 +23,10 @@ public class MoviesService {
     }
 
     private void createDummyListMovies() {
-        Movies m1 = new Movies(sequenceGeneratorService.getSequenceNumber(Movies.SEQUENCE_NAME), "Venom", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxqrFd7qmvG0OjGi1_22jLp3B4V3vtayhQVw&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
-        Movies m2 = new Movies(sequenceGeneratorService.getSequenceNumber(Movies.SEQUENCE_NAME), "Pathan", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGLzaY4Fdq4lJXrl_8py0dJtFF_2ujR4Jeyg&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
-        Movies m3 = new Movies(sequenceGeneratorService.getSequenceNumber(Movies.SEQUENCE_NAME), "Major", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNnajYlDzPlaXsUw2oIZpao__9e8svoBDpAQ&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
-        Movies m4 = new Movies(sequenceGeneratorService.getSequenceNumber(Movies.SEQUENCE_NAME), "Blade-Runnner", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSgsa8pPMJ-txgU-8nEpYT5PU2ffyemM6pseW9Pjuvwo-CZaBKmM7_ZUwRnMjS5hFqgyo&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
+        Movies m1 = new Movies(1L, "Venom", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxqrFd7qmvG0OjGi1_22jLp3B4V3vtayhQVw&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
+        Movies m2 = new Movies(2L, "Pathan", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGLzaY4Fdq4lJXrl_8py0dJtFF_2ujR4Jeyg&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
+        Movies m3 = new Movies(3L, "Major", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNnajYlDzPlaXsUw2oIZpao__9e8svoBDpAQ&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
+        Movies m4 = new Movies(4L, "Blade-Runnner", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSgsa8pPMJ-txgU-8nEpYT5PU2ffyemM6pseW9Pjuvwo-CZaBKmM7_ZUwRnMjS5hFqgyo&usqp=CAU", "https://youtu.be/8ugaeA-nMTc");
         moviesRepo.deleteAll();
         saveMovies(Arrays.asList(m1, m2, m3, m4));
     }
@@ -37,7 +37,6 @@ public class MoviesService {
 
     public Movies createMovie(Movies movie) {
         Movies res = new Movies();
-        res.setId(sequenceGeneratorService.getSequenceNumber(Movies.SEQUENCE_NAME));
         res.setName(movie.getName());
         res.setImgUrl(movie.getImgUrl());
         res.setVideoUrl(movie.getVideoUrl());
@@ -48,7 +47,6 @@ public class MoviesService {
         List<Long> list = new ArrayList<>();
         for (Movies movie : movies) {
             Movies res = new Movies();
-            res.setId(sequenceGeneratorService.getSequenceNumber(Movies.SEQUENCE_NAME));
             res.setName(movie.getName());
             res.setImgUrl(movie.getImgUrl());
             res.setVideoUrl(movie.getVideoUrl());

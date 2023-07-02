@@ -64,7 +64,6 @@ public class UserService {
     }
 
     public User createUser(User user) {
-        user.setId(sequenceGeneratorService.getSequenceNumber(User.SEQUENCE_NAME));
         return userRepo.save(user);
     }
 
