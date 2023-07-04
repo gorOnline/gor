@@ -1,9 +1,6 @@
 package com.app.gorworld.controller;
 
-import com.app.gorworld.dto.OtpRequestDto;
-import com.app.gorworld.dto.UpdatePlanDto;
-import com.app.gorworld.dto.UserGetDto;
-import com.app.gorworld.dto.VerifyPlanDto;
+import com.app.gorworld.dto.*;
 import com.app.gorworld.exception.UserNotFoundException;
 import com.app.gorworld.model.User;
 import com.app.gorworld.service.UserService;
@@ -39,12 +36,19 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User user){
         try {
             User existingUser = userService.getUser(user.getMobileNumber());
-            Long result = null;
+            Long userId = null;
+            CreateUserDto result = new CreateUserDto();
             if(null == existingUser) {
-                result = userService.createUser(user).getId();
+                userId = userService.createUser(user).getId();
             }else{
-                return new ResponseEntity<>("User already exists with number "+user.getMobileNumber(), HttpStatus.INTERNAL_SERVER_ERROR);
+                result.setMessage("User already exists with number "+user.getMobileNumber());
+                return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
             }
+            result.setUserId(userId);
+            if(userId!=null)
+                result.setMessage("User created successfully");
+            else
+                result.setMessage("User creation failed");
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             log.error(e.getMessage());
