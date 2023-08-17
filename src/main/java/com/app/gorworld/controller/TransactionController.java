@@ -1,6 +1,7 @@
 package com.app.gorworld.controller;
 
 
+import com.app.gorworld.dto.CreateTransactionDto;
 import com.app.gorworld.dto.TransactionDto;
 import com.app.gorworld.model.Transaction;
 import com.app.gorworld.service.TransactionService;
@@ -21,15 +22,18 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping
-    public ResponseEntity<?> createTransaction(@RequestBody TransactionDto transactionDto) {
+    public ResponseEntity<CreateTransactionDto> createTransaction(@RequestBody TransactionDto transactionDto) {
         log.info("Inside -> createTransaction()");
+        CreateTransactionDto result = new CreateTransactionDto();
         try {
-            Long result = transactionService.createTransaction(transactionDto);
+            result.setTranId(transactionService.createTransaction(transactionDto));
+            result.setMessage("Transaction created Successfully");
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
             e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            result.setMessage(e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -33,18 +33,19 @@ public class UserController {
     }
 
     @PostMapping(value = "/create",consumes = "application/json")
-    public ResponseEntity<?> createUser(@RequestBody User user){
+    public ResponseEntity<CreateUserDto> createUser(@RequestBody User user){
+        CreateUserDto result = new CreateUserDto();
         try {
             User existingUser = userService.getUser(user.getMobileNumber());
             Long userId = null;
-            CreateUserDto result = new CreateUserDto();
             if(null == existingUser) {
                 userId = userService.createUser(user).getId();
+                result.setUserId(userId);
             }else{
+                result.setUserId(existingUser.getId());
                 result.setMessage("User already exists with number "+user.getMobileNumber());
                 return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            result.setUserId(userId);
             if(userId!=null)
                 result.setMessage("User created successfully");
             else
@@ -53,7 +54,8 @@ public class UserController {
         }catch (Exception e){
             log.error(e.getMessage());
             e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            result.setMessage(e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

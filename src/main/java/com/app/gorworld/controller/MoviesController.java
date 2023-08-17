@@ -26,7 +26,7 @@ public class MoviesController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody Movies movie){
+    public ResponseEntity<?> createMovies(@RequestBody Movies movie){
         try {
             Long result = moviesService.createMovie(movie).getId();
             return new ResponseEntity<>(result, HttpStatus.OK);

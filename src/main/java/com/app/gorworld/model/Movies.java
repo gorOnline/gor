@@ -24,4 +24,5 @@ public class Movies {
     private String name;
     private String imgUrl;
     private String videoUrl;
+    private String duration;
 }
