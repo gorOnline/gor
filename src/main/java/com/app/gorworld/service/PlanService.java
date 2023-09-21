@@ -18,7 +18,7 @@ public class PlanService {
     private PlanResponseDto convertPlan2PlanResponseDto(PLAN p){
         PlanResponseDto res = new PlanResponseDto();
         res.setName(p.getName());
-        res.setMonths(p.getDays());
+        res.setDays(p.getDays());
         res.setOffer(p.getOffer());
         res.setPrice(p.getPrice());
         res.setTotal(p.getTotal());

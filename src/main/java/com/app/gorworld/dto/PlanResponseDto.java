@@ -10,17 +10,17 @@ public class PlanResponseDto {
     }
 
     private String name;
-    private Integer months;
+    private Integer days;
     private Double price;
     private Double offer;
     private Double total;
 
-    public Integer getMonths() {
-        return months;
+    public Integer getDays() {
+        return days;
     }
 
-    public void setMonths(Integer months) {
-        this.months = months;
+    public void setDays(Integer days) {
+        this.days = days;
     }
 
     public Double getPrice() {
